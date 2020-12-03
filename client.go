@@ -169,7 +169,7 @@ func (c *Client) Call(soapAction string, request, response interface{}) (httpRes
 			}
 		}
 		if !foundSoap {
-			return nil, errors.New("Multipart message does contain a soapy part.")
+			return nil, errors.New("multipart message does contain a soapy part")
 		}
 	} else { // SINGLE PART MESSAGE
 		rawbody, err = ioutil.ReadAll(httpResponse.Body)
@@ -182,10 +182,10 @@ func (c *Client) Call(soapAction string, request, response interface{}) (httpRes
 			return // Empty responses are ok. Sometimes Sometimes only a Status 200 or 202 comes back
 		}
 		// There is a message body, but it's not SOAP. We cannot handle this!
-		if !(strings.Contains(string(rawbody), "<soap") || strings.Contains(string(rawbody), "<SOAP")) {
-			l("This is not a SOAP-Message: \n" + string(rawbody))
-			return nil, errors.New("This is not a SOAP-Message: \n" + string(rawbody))
-		}
+		// if !(strings.Contains(string(rawbody), "<soap") || strings.Contains(string(rawbody), "<SOAP")) {
+		// 	l("This is not a SOAP-Message: \n" + string(rawbody))
+		// 	return nil, errors.New("This is not a SOAP-Message: \n" + string(rawbody))
+		// }
 		l("RAWBODY\n", string(rawbody))
 	}
 
